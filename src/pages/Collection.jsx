@@ -7,7 +7,7 @@ import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
   const [showFilter, setShowFilter] = useState(false);
-  const { products, currency } = useContext(ShopContext);
+  const { products, search , showSearch } = useContext(ShopContext);
   const [filterProducts, setFilterProducts] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [subCategoryFilter, setSubCategoryFilter] = useState([]);
@@ -34,6 +34,10 @@ const Collection = () => {
   const applyFillter = () => {
     let productsCopy = products.slice();
 
+    if(showSearch && search.length>0){
+      productsCopy = productsCopy.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
+    }
+
     if (categoryFilter.length > 0) {
       productsCopy = productsCopy.filter((item) =>
         categoryFilter.includes(item.category)
@@ -51,13 +55,15 @@ const Collection = () => {
     }
     setFilterProducts(productsCopy);
   };
-
   useEffect(() => {
     setFilterProducts(products);
   }, [products]);
+
+  
   useEffect(() => {
     applyFillter();
-  }, [categoryFilter, subCategoryFilter, sortOption]);
+  }, [categoryFilter, subCategoryFilter, sortOption , search, showSearch]);
+  
   return (
     <div className="flex flex-row items-start my-10 gap-6 sm:gap-10 pt-10 border-t border-gray-200">
       {/* Filter optioon */}
@@ -170,7 +176,7 @@ const Collection = () => {
               <ProductItem
                 key={item.id}
                 id={item.id}
-                image={item.image}
+                image={item.image[0]}
                 name={item.name}
                 price={item.price}
               />

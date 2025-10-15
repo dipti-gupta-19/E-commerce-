@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import assets from "../assets/assets";
 import logo from "../assets/logo.png";
+import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { setShowSearch , getCartCount } = useContext(ShopContext);
 
   const navLinks = [
     { to: "/", label: 'Home' },
@@ -45,8 +47,9 @@ const Navbar = () => {
         {/* Search */}
         <img
           src={assets.search_icon}
-          className="w-7 cursor-pointer hover:scale-110 transition"
+          className="w-12 cursor-pointer hover:scale-110 transition"
           alt="search"
+          onClick={() => setShowSearch(true)}
         />
 
         {/* Profile Dropdown */}
@@ -70,8 +73,8 @@ const Navbar = () => {
             alt="cart"
             className="w-8 hover:scale-110 transition"
           />
-          <span className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-black text-white rounded-full text-[10px]">
-            10
+          <span className="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-rose-600 text-white rounded-full text-[10px]">
+            {getCartCount()}
           </span>
         </Link>
 

@@ -18,6 +18,16 @@ a.active hr{
   font-style: normal;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+.contatct {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
 @media (max-width:640px) {
   a.active {
    background: #000;
