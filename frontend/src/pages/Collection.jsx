@@ -58,11 +58,17 @@ const Collection = () => {
   useEffect(() => {
     setFilterProducts(products);
   }, [products]);
-
+  // useEffect(() => {
+  //   setFilterProducts(products);
+  // },[sortOption]);
+  useEffect(() => {
+    setFilterProducts(products);
+  }, [search, showSearch]); 
+  
   
   useEffect(() => {
     applyFillter();
-  }, [categoryFilter, subCategoryFilter, sortOption , search, showSearch]);
+  }, [categoryFilter, subCategoryFilter, search, showSearch, sortOption]);
   
   return (
     <div className="flex flex-row items-start my-10 gap-6 sm:gap-10 pt-10 border-t border-gray-200">
