@@ -7,7 +7,7 @@ import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
   const [showFilter, setShowFilter] = useState(false);
-  const { products, search , showSearch } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [filterProducts, setFilterProducts] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [subCategoryFilter, setSubCategoryFilter] = useState([]);
@@ -34,8 +34,10 @@ const Collection = () => {
   const applyFillter = () => {
     let productsCopy = products.slice();
 
-    if(showSearch && search.length>0){
-      productsCopy = productsCopy.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
+    if (showSearch && search.length > 0) {
+      productsCopy = productsCopy.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
     }
 
     if (categoryFilter.length > 0) {
@@ -63,16 +65,15 @@ const Collection = () => {
   // },[sortOption]);
   useEffect(() => {
     setFilterProducts(products);
-  }, [search, showSearch]); 
-  
-  
+  }, [search, showSearch]);
+
   useEffect(() => {
     applyFillter();
   }, [categoryFilter, subCategoryFilter, search, showSearch, sortOption]);
-  
+
   return (
     <div className="flex flex-row items-start my-10 gap-6 sm:gap-10 pt-10 border-t border-gray-200">
-      {/* Filter optioon */}
+      {/* Filter option */}
       <div className="min-w-60 ">
         <p
           onClick={() => setShowFilter(!showFilter)}
@@ -168,7 +169,7 @@ const Collection = () => {
           <select
             className="border border-gray-300 px-2 sm:px-4 py-1 text-sm sm:text-base"
             value={sortOption}
-            onChange={e => setSortOption(e.target.value)}
+            onChange={(e) => setSortOption(e.target.value)}
           >
             <option value="default">Default</option>
             <option value="price-asc">Price: Low to High</option>
@@ -177,12 +178,11 @@ const Collection = () => {
         </div>
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 ">
-          {filterProducts.map((item) => (
-            <div className="border p-2">
+          {filterProducts?.map((item) => (
+            <div key={item.id} className="border p-2">
               <ProductItem
-                key={item.id}
                 id={item.id}
-                image={item.image[0]}
+                image={item.image?.[0] || ""}
                 name={item.name}
                 price={item.price}
               />
