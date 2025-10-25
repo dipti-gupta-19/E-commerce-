@@ -13,6 +13,8 @@ const Collection = () => {
   const [subCategoryFilter, setSubCategoryFilter] = useState([]);
   const [sortOption, setSortOption] = useState("default");
 
+  console.log("Products in Collection:", products);
+
   const toggleCategory = (e) => {
     if (categoryFilter.includes(e.target.value)) {
       setCategoryFilter(
@@ -88,9 +90,8 @@ const Collection = () => {
         />
         {/* category filter */}
         <div
-          className={`border border-gray-300 pl-4 mt-5 cursor-pointer ${
-            showFilter ? "" : "hidden"
-          } sm: block`}
+          className={`border border-gray-300 pl-4 mt-5 cursor-pointer ${showFilter ? "" : "hidden"
+            } sm: block`}
         >
           <p className="mb-3 text-sm font-medium">Category</p>
           <div className="flex flex-col gap-2 pb-4 text-sm font-light text-gray-600">
@@ -178,13 +179,13 @@ const Collection = () => {
         </div>
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 ">
-          {filterProducts?.map((item) => (
-            <div key={item.id} className="border p-2">
+          {filterProducts?.filter(Boolean).map((item) => (
+            <div key={item?._id||item?.id} className="border p-2">
               <ProductItem
-                id={item.id}
-                image={item.image?.[0] || ""}
-                name={item.name}
-                price={item.price}
+                id={item?._id || item?.id}
+                image={item?.images?.[0] || item?.image?.[0] || ""}
+                name={item?.name || ""}
+                price={item?.price ?? 0}
               />
             </div>
           ))}
