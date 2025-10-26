@@ -87,6 +87,7 @@ const ShopContextProvider = ({ children }) => {
       console.log("Products data response:", response.data);
       if(response.data.success){
         setProducts(response.data.products);
+        console.log(products)
       }else{
         toast.error(response.data.message)
       }
