@@ -12,18 +12,25 @@ const Product = () => {
   const [size, setSize] = useState("");
 
   const fetchProductData = async () => {
-    const found = products.find((p) => p.id === productId);
+    const found = products.find((p) => String(p._id) === String(productId));
+    console.log("Searching for ID:", productId);
+    console.log("Found product:", found);
+    console.log("All products:", products);
+
     if (found) {
       setProductData(found);
-      // image may be a string or an array
-      if (Array.isArray(found.image)) setImage(found.image[0] || "");
-      else setImage(found.image || "");
+      setImage(
+        Array.isArray(found.images) ? found.images[0] || "" : found.images || ""
+      );
+    } else {
+      setProductData(null);
+      console.error("Product not found");
     }
   };
 
   useEffect(() => {
     fetchProductData();
-  }, [productId]);
+  }, [productId, products]);
 
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
@@ -32,8 +39,8 @@ const Product = () => {
         {/* product image */}
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
           <div className="flex flex-col overflow-x-auto sm:overflow-y-auto justify-between sm:justify-normal sm:w-[18.7%] w-full">
-            {Array.isArray(productData.image) ? (
-              productData.image.map((item, index) => (
+            {Array.isArray(productData.images) ? (
+              productData.images.map((item, index) => (
                 <img
                   onClick={() => setImage(item)}
                   src={item}
@@ -43,10 +50,9 @@ const Product = () => {
                 />
               ))
             ) : (
-              // single image string
               <img
-                onClick={() => setImage(productData.image)}
-                src={productData.image}
+                onClick={() => setImage(productData.images)}
+                src={productData.images}
                 className="w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer"
                 alt="product"
               />
@@ -137,5 +143,3 @@ const Product = () => {
 };
 
 export default Product;
-
-

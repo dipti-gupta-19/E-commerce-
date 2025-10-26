@@ -6,7 +6,7 @@ import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
-  const [showFilter, setShowFilter] = useState(false);
+  const [showFilter, setShowFilter] = useState(true);
   const { products, search, showSearch } = useContext(ShopContext);
   const [filterProducts, setFilterProducts] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState([]);
@@ -71,7 +71,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFillter();
-  }, [categoryFilter, subCategoryFilter, search, showSearch, sortOption]);
+  }, [categoryFilter, subCategoryFilter, search, showSearch, sortOption , products]);
 
   return (
     <div className="flex flex-row items-start my-10 gap-6 sm:gap-10 pt-10 border-t border-gray-200">
