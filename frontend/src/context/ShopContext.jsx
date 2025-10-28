@@ -115,7 +115,8 @@ const ShopContextProvider = ({ children }) => {
     updateQuantity,
     getCartAmount,
     delivery_fee : 50,
-    navigate,backendUrl
+    navigate,
+    backendUrl
   };
 
   return (
